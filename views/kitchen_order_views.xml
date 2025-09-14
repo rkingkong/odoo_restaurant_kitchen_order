@@ -1,57 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Vista Tree -->
+    <!-- Tree View -->
     <record id="view_pos_kitchen_order_tree" model="ir.ui.view">
         <field name="name">pos.kitchen.order.tree</field>
         <field name="model">pos.kitchen.order</field>
         <field name="arch" type="xml">
-            <tree string="Comandas de Cocina" decoration-success="state=='delivered'" decoration-warning="state=='printed'" decoration-danger="state=='cancelled'">
+            <tree string="Kitchen Orders">
                 <field name="name"/>
-                <field name="pos_order_id"/>
                 <field name="order_date"/>
-                <field name="table_id"/>
+                <field name="table_name"/>
                 <field name="customer_name"/>
-                <field name="user_id"/>
                 <field name="state"/>
                 <field name="print_count"/>
-                <button name="print_kitchen_order" type="object" icon="fa-print" string="Imprimir"/>
-                <button name="mark_as_prepared" type="object" icon="fa-check" string="Preparada" attrs="{'invisible': [('state', '!=', 'printed')]}"/>
             </tree>
         </field>
     </record>
     
-    <!-- Vista Form -->
+    <!-- Form View -->
     <record id="view_pos_kitchen_order_form" model="ir.ui.view">
         <field name="name">pos.kitchen.order.form</field>
         <field name="model">pos.kitchen.order</field>
         <field name="arch" type="xml">
-            <form string="Comanda de Cocina">
+            <form string="Kitchen Order">
                 <header>
-                    <button name="print_kitchen_order" type="object" string="Imprimir Comanda" class="btn-primary" icon="fa-print"/>
-                    <button name="mark_as_prepared" type="object" string="Marcar Preparada" attrs="{'invisible': [('state', '!=', 'printed')]}"/>
-                    <button name="mark_as_delivered" type="object" string="Marcar Entregada" attrs="{'invisible': [('state', '!=', 'prepared')]}"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <div class="oe_title">
-                        <h1><field name="name"/></h1>
-                    </div>
                     <group>
                         <group>
-                            <field name="pos_order_id"/>
+                            <field name="name"/>
                             <field name="order_date"/>
-                            <field name="table_id"/>
-                            <field name="customer_name"/>
+                            <field name="table_name"/>
                         </group>
                         <group>
+                            <field name="customer_name"/>
                             <field name="user_id"/>
                             <field name="print_count"/>
-                            <field name="last_print_date"/>
-                            <field name="session_id"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Productos">
+                        <page string="Order Lines">
                             <field name="line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
@@ -60,7 +48,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Notas">
+                        <page string="Notes">
                             <field name="notes"/>
                         </page>
                     </notebook>
@@ -71,23 +59,15 @@
     
     <!-- Action -->
     <record id="action_pos_kitchen_order" model="ir.actions.act_window">
-        <field name="name">Historial de Comandas</field>
+        <field name="name">Kitchen Orders</field>
         <field name="res_model">pos.kitchen.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                No hay comandas de cocina registradas
-            </p>
-            <p>
-                Las comandas se crean automáticamente al validar pagos en el POS
-            </p>
-        </field>
     </record>
     
-    <!-- Menú -->
+    <!-- Menu -->
     <menuitem id="menu_pos_kitchen_order"
-              name="Comandas de Cocina"
+              name="Kitchen Orders"
               parent="point_of_sale.menu_point_of_sale"
               action="action_pos_kitchen_order"
-              sequence="20"/>
+              sequence="50"/>
 </odoo>
