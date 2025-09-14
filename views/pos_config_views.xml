@@ -6,29 +6,16 @@
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@id='receipt']" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="kitchen_order">
+                <div class="col-12 col-lg-6 o_setting_box">
                     <div class="o_setting_left_pane">
                         <field name="auto_print_kitchen"/>
                     </div>
                     <div class="o_setting_right_pane">
                         <label for="auto_print_kitchen"/>
                         <div class="text-muted">
-                            Imprimir automáticamente comanda de cocina al validar el pago
+                            Automatically print kitchen orders when validating payment
                         </div>
-                        <div class="content-group mt16" attrs="{'invisible': [('auto_print_kitchen', '=', False)]}">
-                            <div class="row mt16">
-                                <label for="print_kitchen_on_payment" class="col-lg-3 o_light_label"/>
-                                <field name="print_kitchen_on_payment"/>
-                            </div>
-                            <div class="row mt16">
-                                <label for="enable_kitchen_reprint" class="col-lg-3 o_light_label"/>
-                                <field name="enable_kitchen_reprint"/>
-                            </div>
-                            <div class="row mt16">
-                                <label for="kitchen_categories" class="col-lg-3 o_light_label"/>
-                                <field name="kitchen_categories" widget="many2many_tags"/>
-                            </div>
-                        </div>
+                        <field name="enable_kitchen_reprint" attrs="{'invisible': [('auto_print_kitchen', '=', False)]}"/>
                     </div>
                 </div>
             </xpath>
