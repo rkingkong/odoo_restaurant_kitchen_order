@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ReprintKitchenButton" owl="1">
+        <div class="control-button o_reprint_kitchen_button">
+            <i class="fa fa-print" role="img" aria-label="Print" title="Reimprimir Comanda"/>
+            <span> Comanda</span>
+        </div>
+    </t>
+</templates>
