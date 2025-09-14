@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_kitchen_order_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="width: 80mm; font-family: monospace;">
+                    <!-- ENCABEZADO -->
+                    <div style="text-align: center; font-weight: bold; font-size: 16pt; border-bottom: 3px double black; padding-bottom: 3mm;">
+                        *** COMANDA COCINA ***<br/>
+                        <span t-field="o.name"/>
+                        <t t-if="o.print_count > 1">
+                            <br/>(REIMPRESIÓN #<span t-esc="o.print_count"/>)
+                        </t>
+                    </div>
+                    
+                    <!-- INFORMACIÓN -->
+                    <div style="text-align: center; margin: 3mm 0; font-size: 11pt;">
+                        <strong><span t-field="o.order_date" t-options='{"widget": "datetime", "format": "dd/MM/yyyy HH:mm"}'/></strong><br/>
+                        <t t-if="o.table_id">
+                            Mesa: <strong><span t-field="o.table_id.name"/></strong><br/>
+                        </t>
+                        <t t-else>
+                            <strong>*** PARA LLEVAR ***</strong><br/>
+                        </t>
+                        Cliente: <span t-field="o.customer_name"/><br/>
+                        Cajero: <span t-field="o.user_id.name"/>
+                    </div>
+                    
+                    <!-- LÍNEA DIVISORA -->
+                    <div style="border-top: 2px solid black; border-bottom: 2px solid black; padding: 2mm 0; text-align: center; font-weight: bold; margin: 3mm 0;">
+                        === PREPARAR LOS SIGUIENTES ITEMS ===
+                    </div>
+                    
+                    <!-- PRODUCTOS -->
+                    <div style="margin: 3mm 0;">
+                        <t t-foreach="o.line_ids" t-as="line">
+                            <div style="border-bottom: 1px dashed #999; padding: 3mm 0; page-break-inside: avoid;">
+                                <span style="display: inline-block; width: 15mm; text-align: center; font-size: 18pt; font-weight: bold;">
+                                    <t t-esc="int(line.qty)"/>
+                                </span>
+                                <span style="font-size: 14pt; font-weight: bold;">
+                                    <t t-field="line.product_id.name"/>
+                                </span>
+                                <t t-if="line.notes">
+                                    <div style="margin-left: 20mm; font-style: italic; font-size: 11pt;">
+                                        → <t t-field="line.notes"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                    
+                    <!-- NOTAS GENERALES -->
+                    <t t-if="o.notes">
+                        <div style="border: 1px solid black; padding: 2mm; margin: 3mm 0;">
+                            <strong>NOTAS:</strong> <span t-field="o.notes"/>
+                        </div>
+                    </t>
+                    
+                    <!-- PIE -->
+                    <div style="text-align: center; margin-top: 5mm; padding-top: 3mm; border-top: 3px double black; font-weight: bold; font-size: 14pt;">
+                        *** PREPARAR INMEDIATAMENTE ***<br/>
+                        <t t-if="o.state == 'pending'">
+                            ¡ORDEN NUEVA!
+                        </t>
+                        <t t-if="o.state == 'printed'">
+                            EN PREPARACIÓN
+                        </t>
+                    </div>
+                    
+                    <!-- Espacio para corte -->
+                    <div style="height: 30mm;"></div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
